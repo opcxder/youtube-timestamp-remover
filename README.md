@@ -1,4 +1,4 @@
-# 🎬 YouTube Timestamp Remover
+# 🎬 CleanTranscribe
 
 A modern web application that extracts clean transcripts from YouTube videos by automatically removing timestamps.
 
