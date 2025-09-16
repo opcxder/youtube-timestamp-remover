@@ -81,12 +81,41 @@ function decodeHtmlEntities(text) {
     '&nbsp;': ' ',
     '&copy;': '©',
     '&reg;': '®',
-    '&trade;': '™'
+    '&trade;': '™',
+    '&#x27;': "'",
+    '&#x2F;': '/',
+    '&#x60;': '`',
+    '&#x3D;': '=',
+    '&#x3C;': '<',
+    '&#x3E;': '>',
+    '&#x26;': '&',
+    '&#x22;': '"',
+    '&#x27;': "'",
+    '&#x2F;': '/',
+    '&#x60;': '`',
+    '&#x3D;': '=',
+    '&#x3C;': '<',
+    '&#x3E;': '>',
+    '&#x26;': '&',
+    '&#x22;': '"'
   };
   
-  return text.replace(/&[a-zA-Z0-9#]+;/g, (entity) => {
+  // First decode numeric entities
+  let decoded = text.replace(/&#(\d+);/g, (match, dec) => {
+    return String.fromCharCode(dec);
+  });
+  
+  // Then decode hex entities
+  decoded = decoded.replace(/&#x([0-9A-Fa-f]+);/g, (match, hex) => {
+    return String.fromCharCode(parseInt(hex, 16));
+  });
+  
+  // Finally decode named entities
+  decoded = decoded.replace(/&[a-zA-Z0-9#]+;/g, (entity) => {
     return htmlEntities[entity] || entity;
   });
+  
+  return decoded;
 }
 
 // Helper function to remove timestamps from transcript
