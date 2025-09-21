@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "projects": [
+        {
+            "source": "client/**/*",
+            "use": "@vercel/next"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/client/$1"
+        }
+    ],
+    "functions": {
+        "client/app/api/**/*": {
+            "runtime": "nodejs18.x"
+        }
+    }
+}
